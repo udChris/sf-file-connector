@@ -5,7 +5,10 @@ const azureServices = require("../services/azure");
 
 
 // region GET
-router.get("/:id", [], async (req, res) => {
-    
-    azureServices.
+router.get("/", [], async (req, res) => {
+
+    let filesToSend = await azureServices.getFilesFromDirectory(req.body.directoryName);
+    return res.send({...filesToSend});
 });
+
+module.exports = router;
