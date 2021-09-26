@@ -1,0 +1,6 @@
+{
+  "assetsBaseUrl": "https://campusforce-testing.herokuapp.com/assets/",
+  "port": 15235,
+  "reset_db": false,
+  "use_store": false
+}

@@ -1,0 +1,10 @@
+{
+  "assetsBaseUrl": "http://ud-campus.herokuapp.com/assets/",
+  "port": 3001,
+  "reset_db": false,
+  "use_store": false,
+  "print_debug": true,
+  "db_default_sort_field": "createdAt",
+  "db_default_sort_direction": "DESC",
+  "db_default_limit": 1000
+}
