@@ -14,6 +14,14 @@ app.use(express.json());
 app.use(helmet());
 app.use(compression());
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", '*');
+    // res.header("Access-Control-Allow-Origin", '*');
+    // res.header("Access-Control-Allow-Origin", '*');
+    // res.header("Access-Control-Allow-Origin", '*');
+    next();
+})
+
 app.use("/api/azure", azure);
 app.use("/api/v1/files", fileRoutes);
 
