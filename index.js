@@ -22,8 +22,8 @@ app.use(function(req, res, next) {
     next();
 })
 
-// app.use("/api/azure", azure);
-// app.use("/api/v1/files", fileRoutes);
+app.use("/api/azure", azure);
+app.use("/api/v1/files", fileRoutes);
 
 
 //region SERVER
