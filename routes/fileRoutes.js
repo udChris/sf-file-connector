@@ -4,6 +4,7 @@ const router = express.Router();
 
 router
     .route('/')
-    .post(fileController.createFile);
+    .post(fileController.createFile)
+    .get(fileController.getFileDirectory);
 
 module.exports = router;
