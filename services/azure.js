@@ -21,11 +21,12 @@ const createNewDirectory = async (name) => {
     await directoryClient.create();
 }
 
-const createNewFile = async (name, fileContent) => {
+const createNewFile = async (name, directory, fileContent) => {
 
-    const serviceClient = new ShareServiceClient(connStr);
+    const shareClient = new ShareServiceClient(connStr);
+    const directoryClient = shareClient.getDirectoryClient(name);
     const fileClient = directoryClient.getFileClient(name);
-    await fileClient.create(content.length);
+    await fileClient.create(fileContent.length);
     await fileClient.uploadRange(fileContent, 0, content.length);
 }
 
