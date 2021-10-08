@@ -24,10 +24,15 @@ const createNewDirectory = async (name) => {
 const createNewFile = async (name, directory, fileContent) => {
 
     const shareClient = new ShareServiceClient(connStr);
+    console.log('Got past share client');
     const directoryClient = shareClient.getDirectoryClient(name);
+    console.log('Got past directory');
     const fileClient = directoryClient.getFileClient(name);
+    console.log('Got past get file client')
     await fileClient.create(fileContent.length);
+    console.log('created file');
     await fileClient.uploadRange(fileContent, 0, content.length);
+    console.log('finally');
 }
 
 const getFilesFromDirectory = async (shareName, directoryName) => {
