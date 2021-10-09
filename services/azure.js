@@ -43,13 +43,13 @@ const createNewFile = async (name, directory, fileContent) => {
     console.log('Got past service client');
     const shareClient = serviceClient.getShareClient(shareName);
     console.log('Got past share client');
-    const directoryClient = shareClient.getDirectoryClient('UD TEST');
+    const directoryClient = shareClient.getDirectoryClient('ZackTest');
     console.log('Got past directory');
     const fileClient = directoryClient.getFileClient(name);
     console.log('Got past get file client')
     await fileClient.create(fileContent.length);
     console.log('created file');
-    await fileClient.uploadRange(fileContent, 0, content.length);
+    await fileClient.uploadRange(fileContent, 0, fileContent.length);
     console.log('finally');
 }
 
