@@ -9,7 +9,7 @@ const connStr = "https://udfileuploader.file.core.windows.net/?sv=2020-08-04&ss=
 
 // both lines created by Zack
 // const serviceClient = ShareServiceClient.fromConnectionString(connStr);
-const shareName = 'udfileclient';
+const shareName = 'udfileuploader';
 
 const createFileShare = async (name) => {
 
