@@ -43,7 +43,7 @@ const createNewFile = async (name, directory, fileContent) => {
     console.log('Got past service client');
     const shareClient = serviceClient.getShareClient(shareName);
     console.log('Got past share client');
-    const directoryClient = shareClient.getDirectoryClient(name);
+    const directoryClient = shareClient.getDirectoryClient('UD TEST');
     console.log('Got past directory');
     const fileClient = directoryClient.getFileClient(name);
     console.log('Got past get file client')
