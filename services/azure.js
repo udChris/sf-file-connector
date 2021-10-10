@@ -27,30 +27,29 @@ const createNewDirectory = async (name) => {
 
 const createNewFile = async (name, directory, fileContent) => {
     // const serviceClient = ShareServiceClient.fromConnectionString(connStr);
-    // console.log('Got service client');
     // const shareClient = serviceClient.getShareClient(shareName);
-    // console.log('Got past share client');
     // const directoryClient = shareClient.getDirectoryClient(name);
-    // console.log('Got past directory');
     // const fileClient = directoryClient.getFileClient(name);
-    // console.log('Got past get file client')
     // await fileClient.create(fileContent.length);
-    // console.log('created file');
     // await fileClient.uploadRange(fileContent, 0, content.length);
     // console.log('finally');
 
+    // const serviceClient = new ShareServiceClient(connStr);
+    // const shareClient = serviceClient.getShareClient(shareName);
+    // const directoryClient = shareClient.getDirectoryClient(name);
+    // const fileClient = directoryClient.getFileClient(name);
+    // await fileClient.create(fileContent.length);
+    // await fileClient.uploadRange(fileContent, 0, fileContent.length);
+    // console.log('finally');
+
     const serviceClient = new ShareServiceClient(connStr);
-    console.log('Got past service client');
-    const shareClient = serviceClient.getShareClient(shareName);
-    console.log('Got past share client');
-    const directoryClient = shareClient.getDirectoryClient('ZackTest');
-    console.log('Got past directory');
+    const directoryClient = serviceClient.getShareClient(shareName).getDirectoryClient('ZackTest');
     const fileClient = directoryClient.getFileClient(name);
-    console.log('Got past get file client')
+    console.log('Here 1');
     await fileClient.create(fileContent.length);
-    console.log('created file');
-    await fileClient.uploadRange(fileContent, 0, fileContent.length);
-    console.log('finally');
+    console.log('Got to create');
+    await fileClient.uploadRange(fileContent, 0, content.length);
+    console.log('Finally');
 }
 
 const getFilesFromDirectory = async (shareName, directoryName) => {
