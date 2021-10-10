@@ -49,7 +49,7 @@ const createNewFile = async (name, directory, fileContent) => {
     await fileClient.create(fileContent.length);
     console.log('Got to create');
     await fileClient.uploadRange(fileContent, 0, content.length);
-    console.log('Finally');
+    console.log('Finally here');
 }
 
 const getFilesFromDirectory = async (shareName, directoryName) => {
