@@ -46,6 +46,8 @@ const createNewFile = async (name, directory, fileContent) => {
     // console.log('finally');
 
     // const serviceClient = new ShareServiceClient(connStr);
+    console.log(fileContent);
+
     const serviceClient = new ShareServiceClient(
         `https://${accountName}.file.core.windows.net${sasToken}`
     );
