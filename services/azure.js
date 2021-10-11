@@ -38,7 +38,7 @@ const createNewFile = async (name, directory, fileContent) => {
     const directoryClient = serviceClient.getShareClient(shareName).getDirectoryClient('ZackTest');
     const fileClient = directoryClient.getFileClient(name);
 
-    // let base64Image = await fileUtility.toBase64(fileContent);
+    let base64Image = await fileUtility.toBase64(fileContent);
     // let decodedImage = atob(base64Image);
     console.log(fileContent);
     let base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
@@ -55,7 +55,7 @@ const createNewFile = async (name, directory, fileContent) => {
     // let index = 0;
     // let buffer = new Buffer(decodedImage, 'utf16le');
 
-    await fileClient.uploadRange(fileContent, 0, fileContent.length - 1);
+    await fileClient.uploadRange(fileContent, 0, fileContent.length);
     console.log('Finally here');
 }
 

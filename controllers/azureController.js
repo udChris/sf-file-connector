@@ -7,6 +7,8 @@ exports.get = async (req, res) => {
 
 exports.post = async (req, res) => {
     try {
+        console.log(req);
+        console.log(req.body);
         let filesToSend = await azureServices.createNewFile(req.body.filename,req.body.directory,req.body.data);
         if(filesToSend){
             console.log(filesToSend);
