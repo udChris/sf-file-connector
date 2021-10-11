@@ -51,10 +51,10 @@ const createNewFile = async (name, directory, fileContent) => {
     );
     const directoryClient = serviceClient.getShareClient(shareName).getDirectoryClient('ZackTest');
     const fileClient = directoryClient.getFileClient(name);
-
+    console.log('Byte Length: ' + Buffer.byteLength(fileContent));
     let contentLength = getFileLengthFromBase64(fileContent);
+    console.log('Content Length: ' + contentLength);
     await fileClient.create(contentLength);
-    console.log('Got to create: ' + fileContent.length );
     await fileClient.uploadRange(fileContent, 0, contentLength);
     console.log('Finally here');
 }
