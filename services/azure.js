@@ -4,6 +4,7 @@
  *                  https://www.npmjs.com/package/@azure/storage-file-share
  */
 const { ShareServiceClient } = require("@azure/storage-file-share");
+const fileUtility = require ('./../utils/fileUtility');
 
 const connStr = "https://udfileuploader.file.core.windows.net/?sv=2020-08-04&ss=bfqt&srt=sco&sp=rwdlacuptfx&se=2023-09-26T09:59:03Z&st=2021-09-26T01:59:03Z&sip=98.230.182.225&spr=https&sig=z2wjbu%2BlClJEpmGOT5R6NQx9zAICSNgo3B%2BTaMWz3R4%3D";
 
@@ -29,41 +30,32 @@ const createNewDirectory = async (name) => {
 }
 
 const createNewFile = async (name, directory, fileContent) => {
-    // const serviceClient = ShareServiceClient.fromConnectionString(connStr);
-    // const shareClient = serviceClient.getShareClient(shareName);
-    // const directoryClient = shareClient.getDirectoryClient(name);
-    // const fileClient = directoryClient.getFileClient(name);
-    // await fileClient.create(fileContent.length);
-    // await fileClient.uploadRange(fileContent, 0, content.length);
-    // console.log('finally');
+    const uploadLimit = 4 * 4 * 1024;
 
-    // const serviceClient = new ShareServiceClient(connStr);
-    // const shareClient = serviceClient.getShareClient(shareName);
-    // const directoryClient = shareClient.getDirectoryClient(name);
-    // const fileClient = directoryClient.getFileClient(name);
-    // await fileClient.create(fileContent.length);
-    // await fileClient.uploadRange(fileContent, 0, fileContent.length);
-    // console.log('finally');
-
-    // const serviceClient = new ShareServiceClient(connStr);
     const serviceClient = new ShareServiceClient(
         `https://${accountName}.file.core.windows.net${sasToken}`
     );
     const directoryClient = serviceClient.getShareClient(shareName).getDirectoryClient('ZackTest');
     const fileClient = directoryClient.getFileClient(name);
-    // let contentLength = getFileLengthFromBase64(fileContent);
-    await fileClient.create(fileContent.length - 1);
+
+    // let base64Image = await fileUtility.toBase64(fileContent);
+    // let decodedImage = atob(base64Image);
+
+    await fileClient.create(fileContent.length);
+
+    // if(decodedImage.length <= uploadLimit){
+    //     await fileClient.uploadRange(decodedImage, 0, decodedImage.length);
+    //     return;
+    // }
+    //
+    // let bytesRead = 0;
+    // let index = 0;
+    // let buffer = new Buffer(decodedImage, 'utf16le');
+
     await fileClient.uploadRange(fileContent, 0, fileContent.length - 1);
     console.log('Finally here');
 }
 
-const getFileLengthFromBase64 = (fileContent) => {
-    const finalTwoChars = fileContent.substring(fileContent.length - 2, fileContent.length);
-    const endSizeToRemove = finalTwoChars === '==' ? 2 : 1;
-    let contentLength = (fileContent.length * (3/4)) - endSizeToRemove;
-    console.log('Content Length: ' + contentLength);
-    return contentLength;
-}
 
 const getFilesFromDirectory = async (shareName, directoryName) => {
 
