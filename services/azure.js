@@ -46,15 +46,15 @@ const createNewFile = async (name, directory, fileContent) => {
     // console.log('finally');
 
     // const serviceClient = new ShareServiceClient(connStr);
-    console.log(fileContent);
 
     const serviceClient = new ShareServiceClient(
         `https://${accountName}.file.core.windows.net${sasToken}`
     );
     const directoryClient = serviceClient.getShareClient(shareName).getDirectoryClient('ZackTest');
     const fileClient = directoryClient.getFileClient(name);
+    console.log('SUBSTRING: ' + fileContent.substring(fileContent.length - 2, fileContent.length));
     await fileClient.create(fileContent.length);
-    console.log('Got to create');
+    console.log('Got to create: ' + fileContent.length );
     await fileClient.uploadRange(fileContent, 0, fileContent.length);
     console.log('Finally here');
 }
