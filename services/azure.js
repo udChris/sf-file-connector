@@ -40,6 +40,9 @@ const createNewFile = async (name, directory, fileContent) => {
 
     // let base64Image = await fileUtility.toBase64(fileContent);
     // let decodedImage = atob(base64Image);
+    console.log(fileContent);
+    let base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
+    console.log('BASE 64 test: ' + base64regex.test(fileContent));
 
     await fileClient.create(fileContent.length);
 
