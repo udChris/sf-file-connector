@@ -13,17 +13,16 @@ exports.get = async (req, res) => {
 }
 
 exports.post = async (req, res) => {
-    azureServices.createNewFile(req.body.name,req.body.directory,req.files[0])
-        .then(filesToSend => {
-            res.status(200).json({
-                status: "success",
-                message : "Successfully uploaded the files!"
-            })
+    try {
+        await azureServices.createNewFile(req.body.name,req.body.directory,req.files[0])
+        res.status(200).json({
+            status: "success",
+            message : "Successfully uploaded the files!"
         })
-        .catch(e => {
-            res.status(400).json({
-                status: "FAILED",
-                message : e
-            })
-        });
+    } catch(e) {
+        res.status(400).json({
+            status: "FAILED",
+            message : e
+        })
+    }
 }
