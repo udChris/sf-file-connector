@@ -2,9 +2,13 @@ const express = require("express");
 const router = express.Router();
 const azureController = require('./../controllers/azureController');
 
+const azureServices = require('../services/azure');
+
+const multer = require("multer");
+const upload = multer();
+
 router
     .route('/')
-    .post(azureController.post)
     .get(azureController.get);
 
 module.exports = router;
@@ -15,18 +19,20 @@ module.exports = router;
 //     return res.send({...filesToSend});
 // });
 //
-// router.post("/", [], async (req, res) => {
-//
-//     let filesToSend = await azureServices.createNewFile(req.body.name,req.body.directory,req.body.data);
-//
-//     console.log(filesToSend);
-//
-//     if(filesToSend){
-//         return res.status(200).send('SUCCESS');
-//     }
-//     else{
-//         return res.status(400).send('FAILED');
-//     }
-// });
+router.post("/", [upload.array("data")], async (req, res) => {
+
+    console.log(req.body);
+    console.log(req.files);
+    let filesToSend = await azureServices.createNewFile(req.body.name,req.body.directory,req.files[0]);
+
+    console.log(filesToSend);
+
+    if(filesToSend){
+        return res.status(200).send('SUCCESS');
+    }
+    else{
+        return res.status(400).send('FAILED');
+    }
+});
 //
 // module.exports = router;
