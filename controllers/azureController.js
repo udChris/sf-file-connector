@@ -3,7 +3,7 @@ const multer = require("multer");
 const upload = multer();
 
 exports.multerMiddleWare = (req, res, next) => {
-    upload.array("data");
+    [upload.array("data")];
     next();
 }
 
