@@ -6,10 +6,10 @@
 const { ShareServiceClient } = require("@azure/storage-file-share");
 const fileUtility = require ('./../utils/fileUtility');
 
-const connStr = "https://udfileuploader.file.core.windows.net/?sv=2020-08-04&ss=bfqt&srt=sco&sp=rwdlacuptfx&se=2023-09-26T09:59:03Z&st=2021-09-26T01:59:03Z&sip=98.230.182.225&spr=https&sig=z2wjbu%2BlClJEpmGOT5R6NQx9zAICSNgo3B%2BTaMWz3R4%3D";
+const connStr = "https://udfileuploader.file.core.windows.net/?sv=2020-08-04&ss=bfqt&srt=sco&sp=rwdlacuptfx&se=2021-10-12T08:40:05Z&st=2021-10-12T00:40:05Z&sip=0.0.0.0-255.255.255.255&spr=https&sig=54aJs%2FyVZkL0OCGsONZyB1emdjCDtgBaP0aG0YK9NUA%3D";
 
 const accountName = 'udfileuploader';
-const sasToken = '?sv=2020-08-04&ss=bfqt&srt=sco&sp=rwdlacuptfx&se=2021-10-11T07:34:55Z&st=2021-10-10T23:34:55Z&sip=0.0.0.0-255.255.255.255&spr=https&sig=%2BxnnuPaMyFatj2SCHdGSc1nLls0sONulX7HFv9WQ9KQ%3D';
+const sasToken = '?sv=2020-08-04&ss=bfqt&srt=sco&sp=rwdlacuptfx&se=2021-10-12T08:40:05Z&st=2021-10-12T00:40:05Z&sip=0.0.0.0-255.255.255.255&spr=https&sig=54aJs%2FyVZkL0OCGsONZyB1emdjCDtgBaP0aG0YK9NUA%3D';
 
 // both lines created by Zack
 // const serviceClient = ShareServiceClient.fromConnectionString(connStr);
@@ -58,15 +58,12 @@ const createNewFile = async (name, directory, fileContent) => {
     // await fileClient.uploadRange(fileContent, 0, fileContent.length);
     // console.log('Finally here');
 
-
-    console.log()
     const serviceClient = new ShareServiceClient(connStr);
     const directoryClient = serviceClient.getShareClient(shareName).getDirectoryClient(directory);
+    console.log(name);
     const fileClient = directoryClient.getFileClient(name);
-
-    console.log(fileContent);
     await fileClient.create(fileContent.size);
-    await fileClient.uploadRange(fileContent, 0, fileContent.size);
+    await fileClient.uploadRange(fileContent.buffer, 0, fileContent.size);
 }
 
 

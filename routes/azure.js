@@ -21,11 +21,8 @@ module.exports = router;
 //
 router.post("/", [upload.array("data")], async (req, res) => {
 
-    console.log(req.body);
-    console.log(req.files);
-    let filesToSend = await azureServices.createNewFile(req.body.name,req.body.directory,req.files[0]);
+    let filesToSend = await azureServices.createNewFile(req.body.filename,req.body.directory,req.files[0]);
 
-    console.log(filesToSend);
 
     if(filesToSend){
         return res.status(200).send('SUCCESS');
