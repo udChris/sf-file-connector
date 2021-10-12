@@ -2,10 +2,10 @@ const azureServices = require("../services/azure");
 const multer = require("multer");
 const upload = multer();
 
-exports.multerMiddleWare = (req, res, next) => {
-    [upload.array("data")];
-    next();
-}
+// exports.multerMiddleWare = (req, res, next) => {
+//
+//     next();
+// }
 
 exports.get = async (req, res) => {
     let filesToSend = await azureServices.getFilesFromDirectory(req.body.directoryName);
