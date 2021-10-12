@@ -9,8 +9,7 @@ const upload = multer();
 
 router
     .route('/')
-    .get(azureController.get)
-    .post([upload.array("data")], azureController.post);
+    .get(azureController.get);
 
 module.exports = router;
 
@@ -20,16 +19,20 @@ module.exports = router;
 //     return res.send({...filesToSend});
 // });
 //
-// router.post("/", [upload.array("data")], async (req, res) => {
-//     await azureServices.createNewFile(req.body.filename,req.body.directory,req.files[0]);
-//
-//
-//     if(filesToSend){
-//         return res.status(200).send('SUCCESS');
-//     }
-//     else{
-//         return res.status(400).send('FAILED');
-//     }
-// });
+router.post("/", [upload.array("data")], async (req, res) => {
+    try {
+        await azureServices.createNewFile(req.body.name, req.body.directory, req.files[0]);
+        return res.status(200).json({
+            status : 'Success',
+            message : 'successfully uploaded file'
+        })
+    } catch(e){
+        return res.status(400).json({
+            status : 'FAILED',
+            message : 'Failed to upload Date',
+            error : e.message
+        })
+    }
+});
 //
 // module.exports = router;
