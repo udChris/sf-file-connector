@@ -41,16 +41,20 @@ const createNewFile = async (name, directory, fileContent) => {
     console.log(name);
     const fileClient = directoryClient.getFileClient(name);
     await fileClient.create(fileContent.size);
-    if(fileContent.size <= fileContent.buffer.size){
+    if(fileContent.size <= uploadLimit){
         console.log('Running this');
         await fileClient.uploadRange(fileContent.buffer, 0, fileContent.size);
         return;
     }
-    console.log('BUFFERING');
-    console.log('BUFFER : ' + fileContent.buffer);
-    let bytesRead = 0;
-    let index = 0;
 
+    console.log('BUFFER Length : ' + fileContent.buffer.length );
+    console.log('File Content Length: ' + fileContent.size);
+
+    // let chunkSize = uploadLimit - 1;
+    // for (let start = 0; start < fileContent.size; start += chunkSize){
+    //     const chunk = fileContent.buffer.slice(start, start + chunkSize + 1);
+    //
+    // }
 }
 
 
