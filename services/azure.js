@@ -7,10 +7,10 @@ const { ShareServiceClient } = require("@azure/storage-file-share");
 const fileUtility = require ('./../utils/fileUtility');
 const stream = require('stream');
 
-const connStr = "https://udfileuploader.file.core.windows.net/?sv=2020-08-04&ss=bfqt&srt=sco&sp=rwdlacuptfx&se=2021-10-12T08:40:05Z&st=2021-10-12T00:40:05Z&sip=0.0.0.0-255.255.255.255&spr=https&sig=54aJs%2FyVZkL0OCGsONZyB1emdjCDtgBaP0aG0YK9NUA%3D";
+const connStr = "https://udfileuploader.file.core.windows.net/?sv=2020-08-04&ss=bfqt&srt=sco&sp=rwdlacuptfx&se=2021-10-14T09:25:38Z&st=2021-10-13T01:25:38Z&sip=0.0.0.0-255.255.255.255&spr=https&sig=V5GGGlGGYNsok6EQz1qeR2i%2BfUJK5M2pLQje59sF1aM%3D";
 
 const accountName = 'udfileuploader';
-const sasToken = '?sv=2020-08-04&ss=bfqt&srt=sco&sp=rwdlacuptfx&se=2021-10-12T08:40:05Z&st=2021-10-12T00:40:05Z&sip=0.0.0.0-255.255.255.255&spr=https&sig=54aJs%2FyVZkL0OCGsONZyB1emdjCDtgBaP0aG0YK9NUA%3D';
+const sasToken = '?sv=2020-08-04&ss=bfqt&srt=sco&sp=rwdlacuptfx&se=2021-10-14T09:25:38Z&st=2021-10-13T01:25:38Z&sip=0.0.0.0-255.255.255.255&spr=https&sig=V5GGGlGGYNsok6EQz1qeR2i%2BfUJK5M2pLQje59sF1aM%3D';
 
 // both lines created by Zack
 // const serviceClient = ShareServiceClient.fromConnectionString(connStr);
