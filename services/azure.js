@@ -47,14 +47,13 @@ const createNewFile = async (name, directory, fileContent) => {
         return;
     }
 
-    console.log('BUFFER Length : ' + fileContent.buffer.length );
-    console.log('File Content Length: ' + fileContent.size);
+    // LARGE FILES > 4MB Chunking
 
-    // let chunkSize = uploadLimit - 1;
-    // for (let start = 0; start < fileContent.size; start += chunkSize){
-    //     const chunk = fileContent.buffer.slice(start, start + chunkSize + 1);
-    //
-    // }
+    let chunkSize = uploadLimit - 1;
+    for (let start = 0; start < fileContent.size; start += chunkSize){
+        const chunk = fileContent.buffer.slice(start, start + chunkSize + 1);
+        await fileClient.uploadRange(chunk, start, chunk.length);
+    }
 }
 
 
