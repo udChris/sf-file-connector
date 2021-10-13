@@ -34,6 +34,9 @@ const createNewFile = async (name, directory, fileContent) => {
     const uploadLimit = 4 * 4 * 1024;
 
     const serviceClient = new ShareServiceClient(connStr);
+    // const serviceClient = new ShareServiceClient(
+    //     `https://${accountName}.file.core.windows.net${sasToken}`
+    // );
     const directoryClient = serviceClient.getShareClient(shareName).getDirectoryClient(directory);
     console.log(name);
     const fileClient = directoryClient.getFileClient(name);
@@ -43,6 +46,7 @@ const createNewFile = async (name, directory, fileContent) => {
         await fileClient.uploadRange(fileContent.buffer, 0, fileContent.size);
         return;
     }
+    console.log('BUFFERING');
     console.log('BUFFER : ' + fileContent.buffer);
     let bytesRead = 0;
     let index = 0;
