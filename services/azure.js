@@ -38,7 +38,8 @@ const createNewFile = async (name, directory, fileContent) => {
     console.log(name);
     const fileClient = directoryClient.getFileClient(name);
     await fileClient.create(fileContent.size);
-    if(fileContent.size <= fileContent.buffer){
+    if(fileContent.size <= fileContent.buffer.size){
+        console.log('Running this');
         await fileClient.uploadRange(fileContent.buffer, 0, fileContent.size);
         return;
     }
