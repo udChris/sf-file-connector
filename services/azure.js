@@ -17,26 +17,29 @@ const sasToken = '?sv=2020-08-04&ss=bfqt&srt=sco&sp=rwdlacuptfx&se=2021-10-14T09
 const shareName = 'udfileshare';
 
 const createFileShare = async (name) => {
-
-    const serviceClient = new ShareServiceClient(connStr);
-    let shareIter = serviceClient.create();
+    const serviceClient = new ShareServiceClient(
+        `https://${accountName}.file.core.windows.net${sasToken}`
+    );
+    const shareClient = serviceClient.getShareClient(shareName);
     await shareClient.create();
 }
 
-const createNewDirectory = async (name) => {
-
-    const serviceClient = new ShareServiceClient(connStr);
-    const directoryClient = shareClient.getDirectoryClient(name);
+const createNewDirectory = async (directoryName) => {
+    const serviceClient = new ShareServiceClient(
+        `https://${accountName}.file.core.windows.net${sasToken}`
+    );
+    const shareClient = serviceClient.getShareClient(shareName);
+    const directoryClient = shareClient.getDirectoryClient(directoryName);
     await directoryClient.create();
 }
 
 const createNewFile = async (name, directory, fileContent) => {
     const uploadLimit = 4 * 4 * 1024;
 
-    const serviceClient = new ShareServiceClient(connStr);
-    // const serviceClient = new ShareServiceClient(
-    //     `https://${accountName}.file.core.windows.net${sasToken}`
-    // );
+    // const serviceClient = new ShareServiceClient(connStr);
+    const serviceClient = new ShareServiceClient(
+        `https://${accountName}.file.core.windows.net${sasToken}`
+    );
     const directoryClient = serviceClient.getShareClient(shareName).getDirectoryClient(directory);
     console.log(name);
     const fileClient = directoryClient.getFileClient(name);
@@ -48,7 +51,7 @@ const createNewFile = async (name, directory, fileContent) => {
     }
 
     // LARGE FILES > 4MB Chunking
-
+    // Maybe use upload range async instead?
     let chunkSize = uploadLimit - 1;
     for (let start = 0; start < fileContent.size; start += chunkSize){
         const chunk = fileContent.buffer.slice(start, start + chunkSize + 1);
@@ -59,7 +62,10 @@ const createNewFile = async (name, directory, fileContent) => {
 
 const getFilesFromDirectory = async (shareName, directoryName) => {
 
-    const serviceClient = new ShareServiceClient(connStr);
+    // const serviceClient = new ShareServiceClient(connStr);
+    const serviceClient = new ShareServiceClient(
+        `https://${accountName}.file.core.windows.net${sasToken}`
+    );
     const directoryClient = serviceClient.getShareClient(shareName).getDirectoryClient(directoryName);
     let dirIter = await directoryClient.listFilesAndDirectories();
 
@@ -76,7 +82,15 @@ const getFilesFromDirectory = async (shareName, directoryName) => {
         i++;
     }
     return returnFiles;
+}
 
+const deleteFile = async (fileName, shareName, directoryName) => {
+    const serviceClient = new ShareServiceClient(
+        `https://${accountName}.file.core.windows.net${sasToken}`
+    );
+    const directoryClient = serviceClient.getShareClient(shareName).getDirectoryClient(directoryName);
+    const fileClient = directoryClient.getFileClient(name);
+    await fileClient.delete();
 }
 
 module.exports = {
