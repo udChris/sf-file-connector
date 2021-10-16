@@ -9,8 +9,12 @@ const upload = multer();
 
 router
     .route('/')
-    .get(azureController.get)
-    .post([upload.array("data")], azureController.post);
+    .get(azureController.getFiles)
+    .post([upload.array("data")], azureController.postFile)
+
+router
+    .route('/directory')
+    .post()
 
 module.exports = router;
 

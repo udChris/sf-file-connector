@@ -14,7 +14,7 @@ const sasToken = '?sv=2020-08-04&ss=bfqt&srt=sco&sp=rwdlacuptfx&se=2021-10-14T09
 
 // both lines created by Zack
 // const serviceClient = ShareServiceClient.fromConnectionString(connStr);
-const shareName = 'udfileshare';
+// const shareName = 'udfileshare';
 
 const createFileShare = async (name) => {
     const serviceClient = new ShareServiceClient(
@@ -33,7 +33,7 @@ const createNewDirectory = async (directoryName) => {
     await directoryClient.create();
 }
 
-const createNewFile = async (name, directory, fileContent) => {
+const createNewFile = async (name, directory, fileContent, shareName) => {
     const uploadLimit = 4 * 4 * 1024;
 
     // const serviceClient = new ShareServiceClient(connStr);
@@ -95,5 +95,8 @@ const deleteFile = async (fileName, shareName, directoryName) => {
 
 module.exports = {
     getFilesFromDirectory,
-    createNewFile
+    createNewFile,
+    deleteFile,
+    createFileShare,
+    createNewDirectory
 }

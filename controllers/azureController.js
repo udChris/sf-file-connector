@@ -7,12 +7,12 @@ const upload = multer();
 //     next();
 // }
 
-exports.get = async (req, res) => {
-    let filesToSend = await azureServices.getFilesFromDirectory(req.body.directoryName);
+exports.getFiles = async (req, res) => {
+    let filesToSend = await azureServices.getFilesFromDirectory('udfileshare', req.body.directoryName);
     return res.send({...filesToSend});
 }
 
-exports.post = async (req, res) => {
+exports.postFile = async (req, res) => {
     try {
         await azureServices.createNewFile(req.body.filename, req.body.directory, req.files[0]);
         return res.status(200).json({
@@ -29,26 +29,24 @@ exports.post = async (req, res) => {
             error : e.message
         })
     }
+}
 
-    // console.log(filesToSend);
-    //
-    // if (filesToSend) {
-    //     return res.status(200).send('SUCCESS');
-    // } else {
-    //     return res.status(400).send('FAILED');
-    // }
+exports.deleteFile = async (req, res) => {
+    try {
+        await azureServices.deleteFile(req.body.filename, 'udfileshare', req.body.directory);
+    } catch(e){
+        return res.status(400).json({
+            status : 'FAILED',
+            message : 'Failed to upload Date',
+            error : e.message
+        })
+    }
+}
 
+exports.createDirectory = async (req, res) => {
 
-    // try {
-    //     await azureServices.createNewFile(req.body.name,req.body.directory,req.files[0])
-    //     res.status(200).json({
-    //         status: "success",
-    //         message : "Successfully uploaded the files!"
-    //     })
-    // } catch(e) {
-    //     res.status(400).json({
-    //         status: "FAILED",
-    //         message : e
-    //     })
-    // }
+}
+
+exports.createNewFileShare = async(req, res) => {
+
 }
